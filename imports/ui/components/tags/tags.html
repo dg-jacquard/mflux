@@ -1,0 +1,39 @@
+
+<template name="tagForm">
+  <form class="tag-{{type}}" data-id="{{_id}}" >
+    <input type="text" name="title" placeholder="Title" value={{title}} required>
+    <input type="text" name="color" placeholder="Color" value={{color}}>
+    {{ #if $eq type 'add' }}
+    <input type="submit" class="btn btn-success" name="submit" value="Adicionar">
+    {{ else }}
+    <input type="submit" class="btn btn-info" name="submit" value="Salvar">
+    {{ /if }}
+  </form>
+</template>
+
+<template name="tags">
+  <h2>Tags</h2>
+  <ul>
+    <li>
+      <h4>Nova tag:</h4>
+      {{ > tagForm type="add" }}
+      <hr>
+    </li>
+    {{#each tags}}
+      <li>
+        {{ #if $neq editTag _id }}
+        <a href="/tag/{{_id}}">{{title}}</a>
+        <a class="btn btn-xs btn-primary edit" href="#">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+        <a href="#" class="remove">
+          <i class="fa fa-trash"></i>
+        </a>
+        {{ /if }}
+        {{ #if $eq editTag _id }}
+          {{ > tagForm type="edit" title=title _id=_id color=color }}
+        {{ /if }}
+      </li>
+    {{/each}}
+  </ul>
+</template>

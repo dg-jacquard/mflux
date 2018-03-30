@@ -1,0 +1,98 @@
+<template name="flux">
+  <h2>
+    Flux {{ totalBalance }}
+  </h2>
+
+  <div class="well">
+    <div id="reportrange" class="pull-right">
+      <i class="glyphicon glyphicon-calendar"></i>&nbsp;
+      <span></span>
+      <b class="caret"></b>
+    </div>
+    {{ #if tagsReady }}
+      <div>
+        Filtrar por tag:
+        {{> MultiSelect name="filterByTags" multiple="multiple" options=tagOptions selectOptions=selectOptions}}
+      </div>
+    {{ /if }}
+  </div>
+
+  <form role="form" class="flux-add">
+    <h2>Novo lançamento</h2>
+
+    <div class="row2x">
+
+      <div class="fields">
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="title" placeholder="Título" required>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+            <input class="form-control currency" type="text" name="amount" placeholder="R$" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group date">
+            <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+            {{> MultiSelect name="tags" multiple="multiple" options=tagOptions selectOptions=selectOptions}}
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="input-group date">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input class="form-control" type="date" name="date" placeholder="DD/MM/YYYY" value={{ today }}>
+          </div>
+        </div>
+
+        <input type="submit" name="submit" class="btn btn-primary" value="OK">
+
+      </div>
+    </div>
+
+  </form>
+
+  <table id="tableFlux" class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Tags</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each flux}}
+      <tr>
+        <td>{{title}}</td>
+        <td class="center {{ classPosNeg amount}}">{{formatCurrency amount}}</td>
+        <td class="center">{{moFormat date 'DD/MM/YYYY'}}</td>
+        <td class="center">
+          {{ #if $and tagsReady tags }}
+            {{#each tags}}
+              <span class="label label-default" data-id="{{ this }}">{{tag this 'title'}}</span>
+            {{/each}}
+          {{ /if }}
+        </td>
+        <td>
+          <a href="#" class="remove">
+            <i class="fa fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+      {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total: {{fluxCount}}</td>
+          <td><span class="{{ classPosNeg totalBalance}}">{{totalBalance}}</span></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </tfoot>
+   </table>
+
+</template>
