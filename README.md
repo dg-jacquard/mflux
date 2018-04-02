@@ -6,14 +6,15 @@ Fluxo financeiro, baseado em tags
 Filtros realtime range de data & tags
 Relatórios das tags & combinações.
 
-meteor / blaze / flow-router boostrap3
-nodejs
-mongodb
-less
+- [x] meteor / blaze / flow-router
+- [x] nodejs
+- [x] mongodb
+- [x] less / boostrap3
 
 ![snapshot 0.0.1](https://file-uewwiwpglq.now.sh/)
 
-`ssh
+### development
+```ssh
   $ meteor npm istall
   $ meteor
-`
+```
